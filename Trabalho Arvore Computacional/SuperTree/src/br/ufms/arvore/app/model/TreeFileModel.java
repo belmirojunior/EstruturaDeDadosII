@@ -17,14 +17,13 @@ public class TreeFileModel {
     private String url;
     private File filethis;
     private Long tamanho;
-    private boolean oculto;
+ 
     private TreeFileModel TreeDict[];
 
     public TreeFileModel(String diretorio) {
         File TreeFile = new File(diretorio);
         this.nome = TreeFile.getName();
         this.url = TreeFile.getAbsolutePath();
-        this.oculto = TreeFile.isHidden();
         this.tamanho =TreeFile.length();
         this.filethis = TreeFile;
     }
@@ -60,15 +59,6 @@ public class TreeFileModel {
     public void setTamanho(Long tamanho) {
         this.tamanho = tamanho;
     }
-
-    public boolean isOculto() {
-        return oculto;
-    }
-
-    public void setOculto(boolean oculto) {
-        this.oculto = oculto;
-    }
-
     public TreeFileModel[] getTreeDict() {
         return TreeDict;
     }
