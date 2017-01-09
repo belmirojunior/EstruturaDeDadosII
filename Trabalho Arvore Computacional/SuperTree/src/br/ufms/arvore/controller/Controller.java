@@ -19,16 +19,15 @@ public class Controller {
     String[] cmd = null;
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private final NavegadorArquivosController navegador = new NavegadorArquivosController();
-    private TreeController tree;
-    private final NavegadorArquivosViews navegadorViews = new NavegadorArquivosViews();
-
+    private TreeController  rootTree;
+  
     public void iniciar() throws IOException {
 
         do {
-
+            
             try {
 
-                System.out.println(navegador.dataagora() + " Para ajuda, entre com o comando Help " + "\n---->: " + navegador.mostraCaminho());
+                System.out.println(navegador.dataagora() + " Para ajuda, entre com o comando Help " + "\n ➜ : " + navegador.mostraCaminho());
                 String linha = reader.readLine();
                 cmd = linha.split(" ");
                 if (cmd[0].equalsIgnoreCase("cd")) {
@@ -36,8 +35,7 @@ public class Controller {
                 } else if (cmd[0].equalsIgnoreCase("cd..")) {
                     voltarDiretorio();
                 } else if (cmd[0].equalsIgnoreCase("arvore")) {
-                    tree = new TreeController(navegador.getCaminho());
-//                    tree.printArvore();
+                    rootTree = new TreeController(navegador.getCaminho());
                 } else if (cmd[0].equalsIgnoreCase("ls")) {
                     if (cmd.length > 1) {
                         navegador.listarArquivos(cmd[1]);
@@ -45,7 +43,7 @@ public class Controller {
                         navegador.listarArquivos();
                     }
                 } else if (cmd[0].equalsIgnoreCase("help")) {
-                    navegadorViews.help();
+                    navegador.Views.help();
                 } else if (cmd[0].equalsIgnoreCase("ping")) {
                     try {
                         navegador.ping(cmd[1]);

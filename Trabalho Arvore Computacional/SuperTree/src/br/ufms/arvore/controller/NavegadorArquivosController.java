@@ -4,6 +4,7 @@
  */
 package br.ufms.arvore.controller;
 
+import br.ufms.arvore.views.NavegadorArquivosViews;
 import java.io.BufferedWriter;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ import java.util.Scanner;
  * @author Rafael
  */
 public class NavegadorArquivosController {
-
+    final NavegadorArquivosViews Views = new NavegadorArquivosViews();  
     private String caminhoAtual = System.getProperty("user.home");
 
     public String getCaminho() {
