@@ -17,14 +17,13 @@ public class TreeFileModel {
     private String url;
     private File filethis;
     private Long tamanho;
- 
     private TreeFileModel TreeDict[];
 
     public TreeFileModel(String diretorio) {
         File TreeFile = new File(diretorio);
         this.nome = TreeFile.getName();
         this.url = TreeFile.getAbsolutePath();
-        this.tamanho =TreeFile.length();
+        this.tamanho = TreeFile.length();
         this.filethis = TreeFile;
     }
 
@@ -59,15 +58,21 @@ public class TreeFileModel {
     public void setTamanho(Long tamanho) {
         this.tamanho = tamanho;
     }
-    public TreeFileModel[] getTreeDict() {
-        return TreeDict;
-    }
 
     public void setTreeDict(int n) {
         this.TreeDict = new TreeFileModel[n];
     }
-    public void setTreeDict(int i , TreeFileModel TreeDict) {
+
+    public TreeFileModel getTreeDict(int i) {
+        return TreeDict[i];
+    }
+
+    public TreeFileModel[] getTreeDict() {
+        return TreeDict;
+    }
+
+    public void setTreeDict(int i, TreeFileModel TreeDict) {
         this.TreeDict[i] = TreeDict;
     }
-    
+
 }

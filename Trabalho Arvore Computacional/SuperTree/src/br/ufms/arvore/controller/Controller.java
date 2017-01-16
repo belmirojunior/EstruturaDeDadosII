@@ -19,12 +19,12 @@ public class Controller {
     String[] cmd = null;
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private final NavegadorArquivosController navegador = new NavegadorArquivosController();
-    private TreeController  rootTree;
-  
+    private TreeController rootTree;
+
     public void iniciar() throws IOException {
 
         do {
-            
+
             try {
 
                 System.out.println(navegador.dataagora() + " Para ajuda, entre com o comando Help " + "\n ➜ : " + navegador.mostraCaminho());
@@ -36,6 +36,22 @@ public class Controller {
                     voltarDiretorio();
                 } else if (cmd[0].equalsIgnoreCase("arvore")) {
                     rootTree = new TreeController(navegador.getCaminho());
+                    System.out.println("Qual tipo de impressão deseja?\n"
+                            + "1 - Pré-Ordem\n"
+                            + "2 - Ordem Simetrica\n"
+                            + "3 - Pós-Ordem\n");
+                    String qltipo = reader.readLine();
+                    switch (qltipo) {
+                        case "1":
+                            rootTree.imprimirTreePreOrdem(rootTree.root," ");
+                            break;
+                        case "2":
+//                            rootTree.imprimirTreeOrdemSimetrica(rootTree.);
+                            break;
+                        case "3":
+                             rootTree.imprimirTreePosOrdem(rootTree.root," ");
+                            break;
+                    }
                 } else if (cmd[0].equalsIgnoreCase("ls")) {
                     if (cmd.length > 1) {
                         navegador.listarArquivos(cmd[1]);

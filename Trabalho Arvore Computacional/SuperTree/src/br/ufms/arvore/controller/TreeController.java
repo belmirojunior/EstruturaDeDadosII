@@ -9,15 +9,18 @@ import java.io.IOException;
  * @author rafael
  */
 public final class TreeController {
-    private final TreeFileModel root;
+
+    public final TreeFileModel root;
+
     public TreeController(String diretorio) throws IOException {
         root = new TreeFileModel(diretorio);
         AbastercerArvore(root);
-        imprimirTree(root, "");
+
     }
 
     public void AbastercerArvore(TreeFileModel raiz) {
         if (raiz.getFilethis().isDirectory()) {
+            raiz.setTamanho(raiz.getFilethis().length());
             raiz.setTamanho(getDirectorySize(raiz.getFilethis()));
             File arrayFiles[] = raiz.getFilethis().listFiles();
             raiz.setTreeDict(arrayFiles.length);
@@ -41,21 +44,52 @@ public final class TreeController {
         return length;
     }
 
-    private void imprimirTree(TreeFileModel treefile, String concatenar) throws IOException {
-        if (treefile.getTreeDict() == null) {
-            System.out.println("➜" + treefile.getNome() + " ➣ " + treefile.getTamanho() + " kbytes ");
-        } else {
+    public void imprimirTreePreOrdem(TreeFileModel treefile, String concatenar) throws IOException {
+        if (treefile.getFilethis().isDirectory()) {
             System.out.println("↳" + treefile.getNome() + " ➣ " + treefile.getTamanho() + " kbytes ");
             TreeFileModel trees[] = treefile.getTreeDict();
             concatenar += "   ";
             for (TreeFileModel tree : trees) {
                 if (!(tree.getFilethis().isHidden())) {
                     System.out.print(concatenar);
-                    imprimirTree(tree, concatenar);
+                    imprimirTreePreOrdem(tree, concatenar);
                 }
             }
+
+        } else {
+            System.out.println("➜" + treefile.getNome() + " ➣ " + treefile.getTamanho() + " kbytes ");
+        }
+    }
+
+    public void imprimirTreePosOrdem(TreeFileModel treefile, String concatenar) throws IOException {
+        if (treefile.getFilethis().isDirectory()) {
+            concatenar += "   ";
+            for (TreeFileModel tree : treefile.getTreeDict()) {
+                if (!(tree.getFilethis().isHidden())) {
+                    imprimirTreePosOrdem(tree, concatenar);
+                    System.out.print(concatenar);
+                }
+            }
+            System.out.println("↳" + treefile.getNome() + " ➣ " + treefile.getTamanho() + " kbytes ");
+        } else {
+            System.out.println("➜" + treefile.getNome() + " ➣ " + treefile.getTamanho() + " kbytes ");
         }
 
     }
 
+    public void imprimirTreeOrdemSimetrica(TreeFileModel treefile, String concatenar) throws IOException {
+        if (treefile.getFilethis().isDirectory()) {
+            concatenar += "   ";
+            for (TreeFileModel tree : treefile.getTreeDict()) {
+                if (!(tree.getFilethis().isHidden())) {
+                    imprimirTreePosOrdem(tree, concatenar);
+                    System.out.print(concatenar);
+                }
+            }
+            System.out.println("↳" + treefile.getNome() + " ➣ " + treefile.getTamanho() + " kbytes ");
+        } else {
+            System.out.println("➜" + treefile.getNome() + " ➣ " + treefile.getTamanho() + " kbytes ");
+        }
+
+    }
 }
