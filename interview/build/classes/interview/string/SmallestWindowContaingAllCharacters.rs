@@ -1,3 +1,0 @@
-ShrinkResult
-com.interview.string.SmallestWindowContaingAllCharacters
-com.interview.string.SmallestWindowContaingAllCharacters$ShrinkResult

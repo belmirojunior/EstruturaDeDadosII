@@ -1,3 +1,0 @@
-SuffixSort
-com.interview.suffixprefix.SuffixArray$SuffixSort
-com.interview.suffixprefix.SuffixArray

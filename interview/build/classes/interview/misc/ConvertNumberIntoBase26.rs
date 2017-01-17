@@ -1,1 +1,0 @@
-com.interview.misc.ConvertNumberIntoBase26

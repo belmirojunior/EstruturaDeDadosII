@@ -1,3 +1,0 @@
-com.interview.graph.EulerianPathAndCircuit
-com.interview.graph.EulerianPathAndCircuit$Eulerian
-Eulerian

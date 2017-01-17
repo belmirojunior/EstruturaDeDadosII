@@ -1,3 +1,0 @@
-com.interview.multithreaded.MinMaxKeeper$GenerateRand
-GenerateRand
-com.interview.multithreaded.MinMaxKeeper

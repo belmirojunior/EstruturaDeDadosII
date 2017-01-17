@@ -1,3 +1,0 @@
-com.interview.number.DivisionWithoutDivisionOperator
-com.interview.number.DivisionWithoutDivisionOperator$Pair
-Pair

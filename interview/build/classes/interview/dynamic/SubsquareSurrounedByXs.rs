@@ -1,3 +1,0 @@
-com.interview.dynamic.SubsquareSurrounedByXs$Cell
-com.interview.dynamic.SubsquareSurrounedByXs
-Cell

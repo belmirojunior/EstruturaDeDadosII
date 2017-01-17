@@ -1,2 +1,0 @@
-com.interview.multithreaded.PositionUpdater
-com.interview.multithreaded.RealTimeCounter

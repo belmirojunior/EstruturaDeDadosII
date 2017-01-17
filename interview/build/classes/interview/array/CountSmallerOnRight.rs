@@ -1,3 +1,0 @@
-NumberIndex
-com.interview.array.CountSmallerOnRight$NumberIndex
-com.interview.array.CountSmallerOnRight

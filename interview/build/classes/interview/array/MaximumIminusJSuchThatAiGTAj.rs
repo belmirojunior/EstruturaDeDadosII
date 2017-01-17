@@ -1,3 +1,0 @@
-com.interview.array.MaximumIminusJSuchThatAiGTAj$Node
-Node
-com.interview.array.MaximumIminusJSuchThatAiGTAj

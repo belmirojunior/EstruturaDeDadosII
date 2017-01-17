@@ -1,1 +1,0 @@
-com.interview.number.LargestMultipleOf3inArray
