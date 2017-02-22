@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufms.arvorepantaneira.controller.PrincipalController">
+   <top>
+      <HBox spacing="3.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="tf_diretorio" promptText="Digite um diretório" />
+            <Button mnemonicParsing="false" text="Criar AVL" />
+            <TextField fx:id="tf_chave" onAction="#inserirAnimal" promptText="Idade">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="btn_inserir" mnemonicParsing="false" onAction="#inserirAnimal" text="Inserir" />
+            <Button fx:id="btn_excluir" mnemonicParsing="false" onAction="#removerAnimal" text="Excluir" />
+            <Button fx:id="btn_buscar" mnemonicParsing="false" text="Buscar" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <right>
+      <VBox spacing="3.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Informações do nó">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Nome: " />
+            <Label text="Pai: " />
+            <Label text="Filho esquerdo: " />
+            <Label text="Filho direito:" />
+         </children>
+         <BorderPane.margin>
+            <Insets right="5.0" top="5.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="5.0" />
+         </padding></VBox>
+   </right>
+   <center>
+      <TextArea fx:id="ta_saida" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Monospaced Bold" size="11.0" />
+         </font>
+      </TextArea>
+   </center>
+</BorderPane>
