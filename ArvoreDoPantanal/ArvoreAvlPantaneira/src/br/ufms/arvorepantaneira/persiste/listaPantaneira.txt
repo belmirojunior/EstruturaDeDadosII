@@ -1,0 +1,2 @@
+rafael|12|M|branco
+jacare|133|F|azul

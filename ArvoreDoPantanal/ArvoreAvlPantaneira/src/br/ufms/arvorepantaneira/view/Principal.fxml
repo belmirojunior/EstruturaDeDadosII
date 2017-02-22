@@ -19,7 +19,7 @@
     <top>
         <HBox prefHeight="25.0" prefWidth="403.0" spacing="3.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="btn_recarregar" mnemonicParsing="false" text="Recarregar" />
+                <Button fx:id="btn_recarregar" mnemonicParsing="false" onAction="#Recarregar" text="Recarregar" />
                 <Button fx:id="btn_limpar_arvore" mnemonicParsing="false" onAction="#LimparArvore" text="Limpar Arvore" />
             </children>
             <BorderPane.margin>

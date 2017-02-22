@@ -6,6 +6,7 @@ package br.ufms.arvorepantaneira.controller;
  * and open the template in the editor.
  */
 import br.ufms.arvorepantaneira.model.Animal;
+import br.ufms.arvorepantaneira.persiste.BancoTXT;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,7 +33,6 @@ public class ControllerFX implements Initializable {
     private Label buscado_cor;
     @FXML
     private Label buscado_idade;
-
     @FXML
     private TextField tf_nome;
     @FXML
@@ -113,8 +113,15 @@ public class ControllerFX implements Initializable {
     }
 
     @FXML
-    private void Recarregar(ActionEvent event) throws IOException {
-
+        private void Recarregar(ActionEvent event) throws IOException {
+        arvore.raiz = null;
+        ta_saida.clear();
+        System.out.println("Entro aqui");
+        BancoTXT banco = new BancoTXT();
+        for (Animal a : banco.LerArquivo()) {
+            arvore.inserir(a.getNome(), a.getIdade(), a.getSexo(), a.getCor());
+        }
+        imprimirArvore();
     }
 
     @FXML
