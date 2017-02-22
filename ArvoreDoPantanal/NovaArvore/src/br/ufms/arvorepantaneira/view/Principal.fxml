@@ -19,8 +19,8 @@
     <top>
         <HBox prefHeight="25.0" prefWidth="403.0" spacing="3.0" BorderPane.alignment="CENTER">
             <children>
-                <Button mnemonicParsing="false" text="Recarregar" />
-                <Button fx:id="btn_excluir" mnemonicParsing="false" onAction="#removerAnimal" text="Limpar Arvore" />
+                <Button fx:id="btn_recarregar" mnemonicParsing="false" text="Recarregar" />
+                <Button fx:id="btn_limpar_arvore" mnemonicParsing="false" onAction="#LimparArvore" text="Limpar Arvore" />
             </children>
             <BorderPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

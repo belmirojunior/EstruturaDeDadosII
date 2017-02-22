@@ -65,9 +65,12 @@ public class ControllerFX implements Initializable {
 
     @FXML
     private void inserirAnimal(ActionEvent event) throws IOException {
+        buscado_nome.setText("null");
+        buscado_sexo.setText("null");
+        buscado_idade.setText("null");
+        buscado_cor.setText("null");
         if (tf_nome.getText() != null && tf_idade.getText() != null && tf_cor.getText() != null && tf_sexo.getText() != null) {
             arvore.inserir(tf_nome.getText(), Integer.parseInt(tf_idade.getText()), tf_sexo.getText(), tf_cor.getText());
-//    
             tf_nome.clear();
             tf_idade.clear();
             tf_cor.clear();
@@ -105,7 +108,18 @@ public class ControllerFX implements Initializable {
             buscado_cor.setText(a.getCor());
 
             imprimirArvore();
+
         }
     }
 
+    @FXML
+    private void Recarregar(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    private void LimparArvore(ActionEvent event) throws IOException {
+        arvore.raiz = null;
+        ta_saida.clear();
+    }
 }
