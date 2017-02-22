@@ -27,7 +27,7 @@ public class PantaneiraAPP extends Application {
 
         Scene scene = new Scene(root);
 
-        primaryStage.setTitle("EC2");
+        primaryStage.setTitle("Trabalho Estrutura II");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

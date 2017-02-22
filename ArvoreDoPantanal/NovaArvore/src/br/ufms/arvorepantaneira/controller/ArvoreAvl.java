@@ -8,7 +8,7 @@ import br.ufms.arvorepantaneira.model.Animal;
  */
 public class ArvoreAvl {
 
-    public int[] vetor;
+    public String[] vetor;
     protected Animal raiz;
 
     public void inserir(String nome, int idade, String sexo, String cor) {
@@ -105,30 +105,29 @@ public class ArvoreAvl {
 
     public Animal buscar(int k) {
         System.out.println("Ola eu aqui: " + k);
-        Animal a = busca(this.raiz, k);
+        Animal a = busca(this.raiz, Math.abs(k));
         if (a == null) {
             System.out.println("nullo");
         } else {
-
             System.out.println("me Acho !" + a.getNome());
         }
         return a;
     }
 
     private Animal busca(Animal atual, int k) {
-        if (atual == null) {
+        if (raiz == null) {
             return null;
+        }
+        if (atual.getChave() == k) {
+            return atual;
+        } else if (atual.getChave() < k) {
+            if (atual.getDireita() != null) {
+              return  busca(atual.getDireita(), k);
+            }
 
-        } else {
-
-            if (atual.getChave() > k) {
-                busca(atual.getEsquerda(), k);
-
-            } else if (atual.getChave() < k) {
-                busca(atual.getDireita(), k);
-
-            } else if (atual.getChave() == k) {
-                return atual;
+        } else if (atual.getChave() > k) {
+            if (atual.getEsquerda() != null) {
+              return  busca(atual.getEsquerda(), k);
             }
         }
         return null;
@@ -290,7 +289,7 @@ public class ArvoreAvl {
     }
 
     public void criarABVetor() {
-        vetor = new int[getNumeroMaximoNos() + 1];
+        vetor = new String[getNumeroMaximoNos() + 1];
         AbasteceVetor(raiz);
 
     }
@@ -299,7 +298,7 @@ public class ArvoreAvl {
         if (a.equals(raiz)) {
             a.setIndice(1);
         }
-        vetor[a.getIndice()] = a.getChave();
+        vetor[a.getIndice()] = a.getNome();
 
         if (a.getDireita() != null) {
             a.getDireita().setIndice((a.getIndice() * 2) + 1);

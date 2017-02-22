@@ -32,10 +32,17 @@ public class ControllerFX implements Initializable {
     private Label buscado_cor;
     @FXML
     private Label buscado_idade;
+
     @FXML
-    private TextField tf_diretorio;
+    private TextField tf_nome;
     @FXML
-    private TextField tf_chave;
+    private TextField tf_idade;
+    @FXML
+    private TextField tf_sexo;
+    @FXML
+    private TextField tf_cor;
+    @FXML
+    private TextField tf_nome_rb;
     @FXML
     private Button btn_inserir;
     @FXML
@@ -45,8 +52,8 @@ public class ControllerFX implements Initializable {
     @FXML
     private TextArea ta_saida;
 
-    private ArvoreAvl arvore = new ArvoreAvl();
-    private TreePrinter t = new TreePrinter();
+    private final ArvoreAvl arvore = new ArvoreAvl();
+    private final TreePrinter t = new TreePrinter();
 
     /**
      * Initializes the controller class.
@@ -58,8 +65,17 @@ public class ControllerFX implements Initializable {
 
     @FXML
     private void inserirAnimal(ActionEvent event) throws IOException {
+        if (tf_nome.getText() != null && tf_idade.getText() != null && tf_cor.getText() != null && tf_sexo.getText() != null) {
+            arvore.inserir(tf_nome.getText(), Integer.parseInt(tf_idade.getText()), tf_sexo.getText(), tf_cor.getText());
+//    
+            tf_nome.clear();
+            tf_idade.clear();
+            tf_cor.clear();
+            tf_sexo.clear();
+        } else {
+            System.out.println("Preencha todos campos");
+        }
 
-        arvore.inserir(tf_chave.getText(), 1, "M", "Azul");
         imprimirArvore();
     }
 
@@ -67,24 +83,27 @@ public class ControllerFX implements Initializable {
         arvore.criarABVetor();
         ta_saida.clear();
         ta_saida.appendText(t.imprimirArvore(arvore.vetor, arvore.getNumeroMaximoNos()));
-        tf_chave.setText("");
         arvore.imprimirVetor();
     }
 
     @FXML
     private void removerAnimal(ActionEvent event) throws IOException {
-        arvore.remover(tf_chave.getText().hashCode());
+        arvore.remover(tf_nome_rb.getText().hashCode());
+        tf_nome_rb.clear();
         imprimirArvore();
     }
 
     @FXML
     private void buscarAnimal(ActionEvent event) throws IOException {
-        Animal a = arvore.buscar(tf_chave.getText().hashCode());
+        Animal a = arvore.buscar(tf_nome_rb.getText().hashCode());
+        tf_nome_rb.clear();
+
         if (a != null) {
             buscado_nome.setText(a.getNome());
             buscado_sexo.setText(a.getSexo());
             buscado_idade.setText(String.valueOf(a.getIdade()));
             buscado_cor.setText(a.getCor());
+
             imprimirArvore();
         }
     }
