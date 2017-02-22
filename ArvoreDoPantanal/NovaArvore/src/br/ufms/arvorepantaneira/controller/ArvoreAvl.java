@@ -2,9 +2,13 @@ package br.ufms.arvorepantaneira.controller;
 
 import br.ufms.arvorepantaneira.model.Animal;
 
+/**
+ *
+ * @author rafael
+ */
 public class ArvoreAvl {
 
-    public  int[] abVetor;
+    public int[] vetor;
     protected Animal raiz;
 
     public void inserir(String nome, int idade, String sexo, String cor) {
@@ -24,7 +28,7 @@ public class ArvoreAvl {
                 if (aComparar.getEsquerda() == null) {
                     aComparar.setEsquerda(aInserir);
                     aInserir.setPai(aComparar);
-                    verificarBalanceamento(aComparar);
+                    verificaBF(aComparar);
 
                 } else {
                     inserirAVL(aComparar.getEsquerda(), aInserir);
@@ -35,7 +39,7 @@ public class ArvoreAvl {
                 if (aComparar.getDireita() == null) {
                     aComparar.setDireita(aInserir);
                     aInserir.setPai(aComparar);
-                    verificarBalanceamento(aComparar);
+                    verificaBF(aComparar);
 
                 } else {
                     inserirAVL(aComparar.getDireita(), aInserir);
@@ -47,31 +51,31 @@ public class ArvoreAvl {
         }
     }
 
-    public void verificarBalanceamento(Animal atual) {
+    public void verificaBF(Animal atual) {
         setBalanceamento(atual);
         int balanceamento = atual.getBalanceamento();
 
         if (balanceamento == -2) {
 
             if (altura(atual.getEsquerda().getEsquerda()) >= altura(atual.getEsquerda().getDireita())) {
-                atual = rotacaoDireita(atual);
+                atual = RSD(atual);
 
             } else {
-                atual = duplaRotacaoEsquerdaDireita(atual);
+                atual = RDD(atual);
             }
 
         } else if (balanceamento == 2) {
 
             if (altura(atual.getDireita().getDireita()) >= altura(atual.getDireita().getEsquerda())) {
-                atual = rotacaoEsquerda(atual);
+                atual = RSE(atual);
 
             } else {
-                atual = duplaRotacaoDireitaEsquerda(atual);
+                atual = RDE(atual);
             }
         }
 
         if (atual.getPai() != null) {
-            verificarBalanceamento(atual.getPai());
+            verificaBF(atual.getPai());
         } else {
             this.raiz = atual;
         }
@@ -97,6 +101,37 @@ public class ArvoreAvl {
                 removerNoEncontrado(atual);
             }
         }
+    }
+
+    public Animal buscar(int k) {
+        System.out.println("Ola eu aqui: " + k);
+        Animal a = busca(this.raiz, k);
+        if (a == null) {
+            System.out.println("nullo");
+        } else {
+
+            System.out.println("me Acho !" + a.getNome());
+        }
+        return a;
+    }
+
+    private Animal busca(Animal atual, int k) {
+        if (atual == null) {
+            return null;
+
+        } else {
+
+            if (atual.getChave() > k) {
+                busca(atual.getEsquerda(), k);
+
+            } else if (atual.getChave() < k) {
+                busca(atual.getDireita(), k);
+
+            } else if (atual.getChave() == k) {
+                return atual;
+            }
+        }
+        return null;
     }
 
     public void removerNoEncontrado(Animal aRemover) {
@@ -135,79 +170,79 @@ public class ArvoreAvl {
             } else {
                 r.getPai().setDireita(p);
             }
-            verificarBalanceamento(r.getPai());
+            verificaBF(r.getPai());
         }
         r = null;
     }
 
-    public Animal rotacaoEsquerda(Animal inicial) {
+    public Animal RSE(Animal a) {
 
-        Animal direita = inicial.getDireita();
-        direita.setPai(inicial.getPai());
+        Animal direita = a.getDireita();
+        direita.setPai(a.getPai());
 
-        inicial.setDireita(direita.getEsquerda());
+        a.setDireita(direita.getEsquerda());
 
-        if (inicial.getDireita() != null) {
-            inicial.getDireita().setPai(inicial);
+        if (a.getDireita() != null) {
+            a.getDireita().setPai(a);
         }
 
-        direita.setEsquerda(inicial);
-        inicial.setPai(direita);
+        direita.setEsquerda(a);
+        a.setPai(direita);
 
         if (direita.getPai() != null) {
 
-            if (direita.getPai().getDireita() == inicial) {
+            if (direita.getPai().getDireita() == a) {
                 direita.getPai().setDireita(direita);
 
-            } else if (direita.getPai().getEsquerda() == inicial) {
+            } else if (direita.getPai().getEsquerda() == a) {
                 direita.getPai().setEsquerda(direita);
             }
         }
 
-        setBalanceamento(inicial);
+        setBalanceamento(a);
         setBalanceamento(direita);
 
         return direita;
     }
 
-    public Animal rotacaoDireita(Animal inicial) {
+    public Animal RSD(Animal a) {
 
-        Animal esquerda = inicial.getEsquerda();
-        esquerda.setPai(inicial.getPai());
+        Animal esquerda = a.getEsquerda();
+        esquerda.setPai(a.getPai());
 
-        inicial.setEsquerda(esquerda.getDireita());
+        a.setEsquerda(esquerda.getDireita());
 
-        if (inicial.getEsquerda() != null) {
-            inicial.getEsquerda().setPai(inicial);
+        if (a.getEsquerda() != null) {
+            a.getEsquerda().setPai(a);
         }
 
-        esquerda.setDireita(inicial);
-        inicial.setPai(esquerda);
+        esquerda.setDireita(a);
+        a.setPai(esquerda);
 
         if (esquerda.getPai() != null) {
 
-            if (esquerda.getPai().getDireita() == inicial) {
+            if (esquerda.getPai().getDireita() == a) {
                 esquerda.getPai().setDireita(esquerda);
 
-            } else if (esquerda.getPai().getEsquerda() == inicial) {
+            } else if (esquerda.getPai().getEsquerda() == a) {
                 esquerda.getPai().setEsquerda(esquerda);
             }
         }
 
-        setBalanceamento(inicial);
+        setBalanceamento(a);
         setBalanceamento(esquerda);
 
         return esquerda;
     }
 
-    public Animal duplaRotacaoEsquerdaDireita(Animal inicial) {
-        inicial.setEsquerda(rotacaoEsquerda(inicial.getEsquerda()));
-        return rotacaoDireita(inicial);
+    public Animal RDD(Animal a) {
+        a.setEsquerda(RSE(a.getEsquerda()));
+        return RSD(a);
     }
 
-    public Animal duplaRotacaoDireitaEsquerda(Animal inicial) {
-        inicial.setDireita(rotacaoDireita(inicial.getDireita()));
-        return rotacaoEsquerda(inicial);
+    public Animal RDE(Animal a) {
+        a.setDireita(RSD(a.getDireita()));
+        return RSE(a);
     }
 
     public Animal sucessor(Animal q) {
@@ -246,40 +281,40 @@ public class ArvoreAvl {
         }
     }
 
-    private void setBalanceamento(Animal no) {
-        no.setBalanceamento(altura(no.getDireita()) - altura(no.getEsquerda()));
+    private void setBalanceamento(Animal animal) {
+        animal.setBF(altura(animal.getDireita()) - altura(animal.getEsquerda()));
     }
 
-    public int getNumMaxNoArvore() {
+    public int getNumeroMaximoNos() {
         return (int) Math.pow(2, altura(raiz) + 2) - 1;
     }
 
     public void criarABVetor() {
-        abVetor = new int[getNumMaxNoArvore() + 1];
-        preencherVetor(raiz);
+        vetor = new int[getNumeroMaximoNos() + 1];
+        AbasteceVetor(raiz);
 
     }
 
-    public void preencherVetor(Animal a) {
+    public void AbasteceVetor(Animal a) {
         if (a.equals(raiz)) {
             a.setIndice(1);
         }
-        abVetor[a.getIndice()] = a.getChave();
+        vetor[a.getIndice()] = a.getChave();
 
         if (a.getDireita() != null) {
             a.getDireita().setIndice((a.getIndice() * 2) + 1);
-            preencherVetor(a.getDireita());
+            AbasteceVetor(a.getDireita());
         }
         if (a.getEsquerda() != null) {
             a.getEsquerda().setIndice((a.getIndice() * 2));
-            preencherVetor(a.getEsquerda());
+            AbasteceVetor(a.getEsquerda());
         }
 
     }
 
     public void imprimirVetor() {
-        for (int i = 1; i < abVetor.length; i++) {
-            System.out.print(abVetor[i] + " ");
+        for (int i = 1; i < vetor.length; i++) {
+            System.out.print(vetor[i] + " ");
         }
         System.out.println("");
     }

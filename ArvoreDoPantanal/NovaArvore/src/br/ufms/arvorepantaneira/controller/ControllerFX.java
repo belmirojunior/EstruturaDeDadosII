@@ -5,6 +5,7 @@ package br.ufms.arvorepantaneira.controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import br.ufms.arvorepantaneira.model.Animal;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -20,8 +22,16 @@ import javafx.scene.control.TextField;
  *
  * @author rafael
  */
-public class PrincipalController implements Initializable {
+public class ControllerFX implements Initializable {
 
+    @FXML
+    private Label buscado_nome;
+    @FXML
+    private Label buscado_sexo;
+    @FXML
+    private Label buscado_cor;
+    @FXML
+    private Label buscado_idade;
     @FXML
     private TextField tf_diretorio;
     @FXML
@@ -50,14 +60,13 @@ public class PrincipalController implements Initializable {
     private void inserirAnimal(ActionEvent event) throws IOException {
 
         arvore.inserir(tf_chave.getText(), 1, "M", "Azul");
-        arvore.imprimirVetor();
         imprimirArvore();
     }
 
     private void imprimirArvore() throws IOException {
         arvore.criarABVetor();
         ta_saida.clear();
-        ta_saida.appendText(t.imprimirArvore(arvore.abVetor, arvore.getNumMaxNoArvore()));
+        ta_saida.appendText(t.imprimirArvore(arvore.vetor, arvore.getNumeroMaximoNos()));
         tf_chave.setText("");
         arvore.imprimirVetor();
     }
@@ -66,6 +75,18 @@ public class PrincipalController implements Initializable {
     private void removerAnimal(ActionEvent event) throws IOException {
         arvore.remover(tf_chave.getText().hashCode());
         imprimirArvore();
+    }
+
+    @FXML
+    private void buscarAnimal(ActionEvent event) throws IOException {
+        Animal a = arvore.buscar(tf_chave.getText().hashCode());
+        if (a != null) {
+            buscado_nome.setText(a.getNome());
+            buscado_sexo.setText(a.getSexo());
+            buscado_idade.setText(String.valueOf(a.getIdade()));
+            buscado_cor.setText(a.getCor());
+            imprimirArvore();
+        }
     }
 
 }

@@ -33,7 +33,7 @@ public class NovaArvore {
             a.criarABVetor();
             System.out.println("\n-----------------------------------\n");
             a.imprimirVetor();
-            t.imprimirArvore(a.abVetor, a.getNumMaxNoArvore());
+            t.imprimirArvore(a.vetor, a.getNumeroMaximoNos());
         }
 
     }

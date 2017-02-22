@@ -109,7 +109,7 @@ public class Animal {
         return balanceamento;
     }
 
-    public void setBalanceamento(int balanceamento) {
+    public void setBF(int balanceamento) {
         this.balanceamento = balanceamento;
     }
 
