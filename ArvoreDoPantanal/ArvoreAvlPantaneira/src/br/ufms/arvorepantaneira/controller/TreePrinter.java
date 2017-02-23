@@ -11,11 +11,11 @@ import java.util.Scanner;
 
 class No {
 
-    public String data;
+    public int data;
     public No esquerda;
     public No direita;
 
-    public No(String data, No esquerda, No direita) {
+    public No(int data, No esquerda, No direita) {
         this.data = data;
         this.esquerda = esquerda;
         this.direita = direita;
@@ -124,8 +124,8 @@ public class TreePrinter {
     static int N, height;
     static No root;
 
-    public String imprimirArvore(String[] vetor, int n) throws IOException {
-        String vet[] = vetor;
+    public String imprimirArvore(int[] vetor, int n) throws IOException {
+        int vet[] = vetor;
         int cont = 2;
         root = new No(vet[1], null, null);
 
@@ -138,27 +138,27 @@ public class TreePrinter {
             q.add(root);
             for (int i = 0; i < N && !q.isEmpty(); i++) {
 
-                String a = vet[cont];
+                int a = vet[cont];
                 cont++;
-                String b = vet[cont];
+                int b = vet[cont];
                 cont++;
 
-                if (a == null) {
-                    a = String.valueOf(-1);
+                if (a == 0) {
+                    a = -1;
                 }
-                if (b == null) {
-                    b = String.valueOf(-1);
+                if (b == 0) {
+                    b = -1;
                 }
                 No current = q.remove(0);
 
-                if (a.equals(String.valueOf(-1))) {
+                if (a == -1) {
                     current.esquerda = null;
                 } else {
                     current.esquerda = new No(a, null, null);
                     q.add(current.esquerda);
                 }
 
-                if (b.equals(String.valueOf(-1))) {
+                if (b == -1) {
                     current.direita = null;
                 } else {
                     current.direita = new No(b, null, null);

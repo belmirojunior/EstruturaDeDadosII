@@ -8,12 +8,17 @@ import br.ufms.arvorepantaneira.model.Animal;
  */
 public class ArvoreAvl {
 
-    public String[] vetor;
+    public int[] vetor;
     protected Animal raiz;
 
     public void inserir(String nome, int idade, String sexo, String cor) {
         Animal n = new Animal(nome, idade, sexo, cor);
         inserirAVL(this.raiz, n);
+    }
+
+    public void inserir(Animal a) {
+
+        inserirAVL(this.raiz, a);
     }
 
     public void inserirAVL(Animal aComparar, Animal aInserir) {
@@ -46,7 +51,7 @@ public class ArvoreAvl {
                 }
 
             } else {
-                // O nó já existe
+
             }
         }
     }
@@ -82,7 +87,7 @@ public class ArvoreAvl {
     }
 
     public void remover(int k) {
-        removerAVL(this.raiz, k);
+        removerAVL(this.raiz, ArmazenaComID.remove(Math.abs(k)));
     }
 
     public void removerAVL(Animal atual, int k) {
@@ -104,14 +109,8 @@ public class ArvoreAvl {
     }
 
     public Animal buscar(int k) {
-        System.out.println("Ola eu aqui: " + k);
-        Animal a = busca(this.raiz, Math.abs(k));
-        if (a == null) {
-            System.out.println("nullo");
-        } else {
-            System.out.println("me Acho !" + a.getNome());
-        }
-        return a;
+
+        return busca(this.raiz, ArmazenaComID.busca(Math.abs(k)));
     }
 
     private Animal busca(Animal atual, int k) {
@@ -122,12 +121,12 @@ public class ArvoreAvl {
             return atual;
         } else if (atual.getChave() < k) {
             if (atual.getDireita() != null) {
-              return  busca(atual.getDireita(), k);
+                return busca(atual.getDireita(), k);
             }
 
         } else if (atual.getChave() > k) {
             if (atual.getEsquerda() != null) {
-              return  busca(atual.getEsquerda(), k);
+                return busca(atual.getEsquerda(), k);
             }
         }
         return null;
@@ -289,7 +288,7 @@ public class ArvoreAvl {
     }
 
     public void criarABVetor() {
-        vetor = new String[getNumeroMaximoNos() + 1];
+        vetor = new int[getNumeroMaximoNos() + 1];
         AbasteceVetor(raiz);
 
     }
@@ -298,7 +297,8 @@ public class ArvoreAvl {
         if (a.equals(raiz)) {
             a.setIndice(1);
         }
-        vetor[a.getIndice()] = a.getNome();
+
+        vetor[a.getIndice()] = a.getChave();
 
         if (a.getDireita() != null) {
             a.getDireita().setIndice((a.getIndice() * 2) + 1);

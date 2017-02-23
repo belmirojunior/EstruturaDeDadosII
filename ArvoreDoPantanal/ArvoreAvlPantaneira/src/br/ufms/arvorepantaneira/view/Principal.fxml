@@ -34,15 +34,19 @@
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
-               <graphic>
-                  <HBox prefHeight="6.0" prefWidth="152.0">
-                     <children>
-                            <Label text="Nome: " />
-                        <Label fx:id="buscado_nome" text=" null" />
-                     </children>
-                  </HBox>
-               </graphic>
                 </Label>
+            <HBox layoutX="15.0" layoutY="28.0" prefHeight="6.0" prefWidth="152.0">
+               <children>
+                  <Label text="Chave: " />
+                  <Label fx:id="buscado_chave" text=" null" />
+               </children>
+            </HBox>
+            <HBox prefHeight="6.0" prefWidth="152.0">
+               <children>
+                      <Label text="Nome: " />
+                  <Label fx:id="buscado_nome" text=" null" />
+               </children>
+            </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                       <Label text="Sexo: " />

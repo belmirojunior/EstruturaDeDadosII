@@ -1,5 +1,7 @@
 package br.ufms.arvorepantaneira.model;
 
+import br.ufms.arvorepantaneira.controller.ArmazenaComID;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,8 +29,17 @@ public class Animal {
         this.idade = idade;
         this.sexo = sexo;
         this.cor = cor;
-        this.chave = Math.abs(nome.hashCode());
+        this.chave = ArmazenaComID.abatece(Math.abs(nome.hashCode()));
         this.balanceamento = 0;
+    }
+
+    public Animal(Animal a) {
+        this.nome = a.nome;
+        this.idade = a.idade;
+        this.sexo = a.sexo;
+        this.cor = a.cor;
+        this.chave = a.chave;
+        this.balanceamento = a.balanceamento;
     }
 
     public String getNome() {

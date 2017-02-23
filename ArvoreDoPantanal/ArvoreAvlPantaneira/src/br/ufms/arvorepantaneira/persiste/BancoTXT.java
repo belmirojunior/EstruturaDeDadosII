@@ -28,18 +28,13 @@ public class BancoTXT {
         String linha = br.readLine();
         ArrayList<Animal> lista = new ArrayList<>();
         while (linha != null) {
-
-            String nome = linha.substring(0, linha.indexOf('|'));
-            String idade = linha.substring(linha.indexOf('|') + 1, linha.lastIndexOf('|') - 2);
-            String cor = linha.substring(linha.indexOf('|') + 4, linha.lastIndexOf('|'));
-            String sexo = linha.substring(linha.lastIndexOf('|') + 1, linha.length());
+            String[] entrada = linha.split(";");
+            String nome = entrada[0];
+            String idade = entrada[1];
+            String cor = entrada[2];
+            String sexo = entrada[3];
             Animal a = new Animal(nome, Integer.parseInt(idade), sexo, cor);
             lista.add(a);
-
-            System.out.println(nome);
-            System.out.println(idade);
-            System.out.println(cor);
-            System.out.println(sexo);
             try {
                 linha = br.readLine();
             } catch (IOException ex) {

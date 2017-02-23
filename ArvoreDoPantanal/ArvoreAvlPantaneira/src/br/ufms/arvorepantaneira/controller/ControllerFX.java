@@ -26,6 +26,8 @@ import javafx.scene.control.TextField;
 public class ControllerFX implements Initializable {
 
     @FXML
+    private Label buscado_chave;
+    @FXML
     private Label buscado_nome;
     @FXML
     private Label buscado_sexo;
@@ -44,12 +46,6 @@ public class ControllerFX implements Initializable {
     @FXML
     private TextField tf_nome_rb;
     @FXML
-    private Button btn_inserir;
-    @FXML
-    private Button btn_excluir;
-    @FXML
-    private Button btn_buscar;
-    @FXML
     private TextArea ta_saida;
 
     private final ArvoreAvl arvore = new ArvoreAvl();
@@ -65,6 +61,7 @@ public class ControllerFX implements Initializable {
 
     @FXML
     private void inserirAnimal(ActionEvent event) throws IOException {
+        buscado_chave.setText("null");
         buscado_nome.setText("null");
         buscado_sexo.setText("null");
         buscado_idade.setText("null");
@@ -102,6 +99,7 @@ public class ControllerFX implements Initializable {
         tf_nome_rb.clear();
 
         if (a != null) {
+            buscado_chave.setText(String.valueOf(a.getChave()));
             buscado_nome.setText(a.getNome());
             buscado_sexo.setText(a.getSexo());
             buscado_idade.setText(String.valueOf(a.getIdade()));
@@ -113,13 +111,14 @@ public class ControllerFX implements Initializable {
     }
 
     @FXML
-        private void Recarregar(ActionEvent event) throws IOException {
+    private void Recarregar(ActionEvent event) throws IOException {
         arvore.raiz = null;
         ta_saida.clear();
+        ArmazenaComID.zerarLista();
         System.out.println("Entro aqui");
         BancoTXT banco = new BancoTXT();
         for (Animal a : banco.LerArquivo()) {
-            arvore.inserir(a.getNome(), a.getIdade(), a.getSexo(), a.getCor());
+            arvore.inserir(a);
         }
         imprimirArvore();
     }
