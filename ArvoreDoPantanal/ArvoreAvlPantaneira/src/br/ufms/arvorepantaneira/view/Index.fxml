@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufms.arvorepantaneira.controller.ControllerFX">
+    <top>
+        <HBox prefHeight="25.0" prefWidth="403.0" spacing="3.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="btn_recarregar" mnemonicParsing="false" onAction="#Recarregar" text="Carregar Arvore TXT" />
+                <Button fx:id="btn_limpar_arvore" mnemonicParsing="false" onAction="#LimparArvore" text="Limpar Arvore" />
+            </children>
+            <BorderPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </BorderPane.margin>
+        </HBox>
+    </top>
+    <right>
+        <VBox prefHeight="360.0" prefWidth="165.0" spacing="3.0" BorderPane.alignment="CENTER">
+            <children>
+            <VBox prefHeight="273.0" prefWidth="160.0">
+               <children>
+                      <Label prefHeight="37.0" prefWidth="150.0" text="Info. No Buscado">
+                          <font>
+                              <Font name="System Bold" size="12.0" />
+                          </font>
+                      </Label>
+                      <HBox prefHeight="17.0" prefWidth="160.0">
+                          <children>
+                              <Label text="Chave: " />
+                              <Label fx:id="buscado_chave" prefHeight="15.0" prefWidth="91.0" text=" null" />
+                          </children>
+                      </HBox>
+                      <HBox prefHeight="18.0" prefWidth="160.0">
+                          <children>
+                              <Label text="Index:" />
+                              <Label fx:id="buscado_index" prefHeight="15.0" prefWidth="96.0" text="   null" />
+                          </children>
+                      </HBox>
+                      <HBox prefHeight="18.0" prefWidth="160.0">
+                          <children>
+                              <Label text="FB:" />
+                              <Label fx:id="buscado_fb" text="   null" />
+                          </children>
+                      </HBox>
+                  <HBox prefHeight="18.0" prefWidth="160.0">
+                     <children>
+                        <Label text="Altura:" />
+                        <Label fx:id="buscado_altura" text="   null" />
+                     </children>
+                  </HBox>
+                      <Label prefHeight="37.0" prefWidth="150.0" text="Info. Animal Buscado">
+                          <font>
+                              <Font name="System Bold" size="12.0" />
+                          </font>
+                      </Label>
+                      <HBox prefHeight="27.0" prefWidth="160.0">
+                          <children>
+                              <Label prefHeight="49.0" prefWidth="47.0" text="Nome: " />
+                              <Label fx:id="buscado_nome" prefHeight="27.0" prefWidth="111.0" text=" null" />
+                          </children>
+                      </HBox>
+                      <HBox prefHeight="23.0" prefWidth="160.0">
+                          <children>
+                              <Label text="Sexo: " />
+                              <Label fx:id="buscado_sexo" prefHeight="15.0" prefWidth="94.0" text="  null " />
+                          </children>
+                      </HBox>
+                      <HBox prefHeight="22.0" prefWidth="160.0">
+                          <children>
+                              <Label text="Cor: " />
+                              <Label fx:id="buscado_cor" text="    null" />
+                          </children>
+                      </HBox>
+                      <HBox prefHeight="22.0" prefWidth="160.0">
+                          <children>
+                              <Label text="Idade:" />
+                              <Label fx:id="buscado_idade" text=" null" />
+                          </children>
+                      </HBox>
+               </children>
+            </VBox>
+            <Label prefHeight="37.0" prefWidth="150.0" text="     Inserir Animal">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+                <VBox prefHeight="172.0" prefWidth="160.0">
+                    <children>
+                        <TextField fx:id="tf_nome" prefHeight="28.0" prefWidth="160.0" promptText="Nome" />
+                        <ChoiceBox fx:id="cb_idade" prefHeight="25.0" prefWidth="197.0" value="1">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="1" />                                   
+                                    <String fx:value="2" />
+                                    <String fx:value="3" />
+                                    <String fx:value="4" />
+                                    <String fx:value="5" />
+                                    <String fx:value="6" />
+                                    <String fx:value="7" />
+                                    <String fx:value="8" />
+                                    <String fx:value="9" />
+                                    <String fx:value="10" />
+                                    <String fx:value="11" />
+                                    <String fx:value="12" />
+                                    <String fx:value="13" />
+                                    <String fx:value="14" />
+                                    <String fx:value="15" />
+                                    <String fx:value="16" />
+                                    <String fx:value="17" />
+                                    <String fx:value="18" />
+                                    <String fx:value="19" />
+                                    <String fx:value="20" />
+                                    <String fx:value="21" />
+                                    <String fx:value="22" />
+                                    <String fx:value="23" />
+                                    <String fx:value="24" />
+                                    <String fx:value="25" />
+                                    <String fx:value="26" />
+                                    <String fx:value="27" />
+                                    <String fx:value="28" />
+                                    <String fx:value="29" />
+                                    <String fx:value="30" />
+                                    <String fx:value="31" />
+                                    <String fx:value="32" />
+                                    <String fx:value="33" />                                    
+                                    <String fx:value="33" />
+                                    <String fx:value="34" />
+                                    <String fx:value="35" />
+                                    <String fx:value="36" />
+                                    <String fx:value="37" />
+                                    <String fx:value="38" />
+                                    <String fx:value="39" />                                      
+                                    <String fx:value="40" />
+                                  
+                                                                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                        <ChoiceBox fx:id="cb_sexo" prefHeight="25.0" prefWidth="194.0" value="MACHO">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="MACHO" />
+                                    <String fx:value="FEMEA" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                        <TextField fx:id="tf_cor" prefHeight="30.0" prefWidth="160.0" promptText="Cor" />
+                        <Button fx:id="btn_inserir" mnemonicParsing="false" onAction="#inserirAnimal" prefHeight="29.0" prefWidth="196.0" text="Inserir" />
+                    </children>
+                </VBox>
+            <Label prefHeight="37.0" prefWidth="150.0" text=" Busc./Remo. Animal">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="195.0" prefWidth="160.0">
+               <children>
+                  <TextField fx:id="tf_nome_rb" prefHeight="31.0" prefWidth="160.0" promptText="Nome" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                                <Button fx:id="btn_buscar" mnemonicParsing="false" onAction="#buscarAnimal" prefHeight="29.0" prefWidth="83.0" text="Buscar" />
+                        <Button fx:id="btn_remover" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#removerAnimal" prefHeight="29.0" prefWidth="77.0" text="Remover" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            </children>
+            <BorderPane.margin>
+                <Insets right="5.0" top="5.0" />
+            </BorderPane.margin>
+            <padding>
+                <Insets left="5.0" />
+            </padding>
+        </VBox>
+    </right>
+    <center>
+        <TextArea fx:id="ta_saida" prefHeight="665.0" prefWidth="1081.0" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="Monospaced Bold" size="11.0" />
+            </font>
+        </TextArea>
+    </center>
+</BorderPane>

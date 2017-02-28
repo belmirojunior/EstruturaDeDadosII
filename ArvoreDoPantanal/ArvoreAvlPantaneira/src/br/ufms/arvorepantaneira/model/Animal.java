@@ -1,6 +1,5 @@
 package br.ufms.arvorepantaneira.model;
 
-import br.ufms.arvorepantaneira.controller.ArmazenaComID;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,6 +15,7 @@ public class Animal {
     private Animal esquerda = null;
     private Animal direita = null;
     private Animal pai = null;
+    private int altura;
     private int chave;
     private int balanceamento;
     private int indice;
@@ -29,7 +29,10 @@ public class Animal {
         this.idade = idade;
         this.sexo = sexo;
         this.cor = cor;
-        this.chave = ArmazenaComID.abatece(Math.abs(nome.hashCode()));
+        this.chave = Math.abs(nome.hashCode());
+
+//        this.chave = nome;
+//        this.chave = Math.abs(nome.hashCode());
         this.balanceamento = 0;
     }
 
@@ -74,6 +77,14 @@ public class Animal {
     public void setChave(int chave) {
 
         this.chave = chave;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
     }
 
     public String getSexo() {

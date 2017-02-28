@@ -22,7 +22,7 @@ public class PantaneiraAPP extends Application {
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         Parent root = (Parent) loader.load(getClass().getClassLoader().getResourceAsStream(
-                "br/ufms/arvorepantaneira/view/Principal.fxml"));
+                "br/ufms/arvorepantaneira/view/Index.fxml"));
 
 
         Scene scene = new Scene(root);

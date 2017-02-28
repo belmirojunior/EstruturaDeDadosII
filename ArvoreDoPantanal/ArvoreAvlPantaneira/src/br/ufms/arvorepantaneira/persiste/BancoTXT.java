@@ -33,7 +33,7 @@ public class BancoTXT {
             String idade = entrada[1];
             String cor = entrada[2];
             String sexo = entrada[3];
-            Animal a = new Animal(nome, Integer.parseInt(idade), sexo, cor);
+            Animal a = new Animal(nome, Integer.parseInt(idade), cor, sexo);
             lista.add(a);
             try {
                 linha = br.readLine();
