@@ -1,6 +1,6 @@
 package br.ufms.b.app;
 import br.ufms.b.model.controller.ArvoreB;
-import br.ufms.b.model.MeuItem;
+import br.ufms.b.model.Pag;
 import java.io.*;
 
 public class CriaArvoreB {
@@ -22,9 +22,9 @@ public class CriaArvoreB {
                     System.out.println("Informe um elemento");
                     chave = Integer.parseInt(in.readLine());
                     while (chave > 0) {
-                        MeuItem item = new MeuItem(chave);
-                        b.insere(item);
-                        b.imprime();
+                        Pag item = new Pag(chave);
+                        b.inserir(item);
+                        b.print();
                         chave = Integer.parseInt(in.readLine());
                     }
                     break;
@@ -32,8 +32,8 @@ public class CriaArvoreB {
                     System.out.println("\nPesquisando chaves");
                     chave = Integer.parseInt(in.readLine());
                     while (chave > 0) {
-                        MeuItem item = new MeuItem(chave);
-                        item = (MeuItem) b.pesquisa(item);
+                        Pag item = new Pag(chave);
+                        item = (Pag) b.busca(item);
                         if (item == null) {
                             System.out.println("Item nao encontrado");
                         } else {
@@ -46,9 +46,9 @@ public class CriaArvoreB {
                     System.out.println("\nRemovendo algumas chaves");
                     chave = Integer.parseInt(in.readLine());
                     while (chave > 0) {
-                        MeuItem item = new MeuItem(chave);
-                        b.retira(item);
-                        b.imprime();
+                        Pag item = new Pag(chave);
+                        b.remover(item);
+                        b.print();
                         chave = Integer.parseInt(in.readLine());
                     }
                     break;

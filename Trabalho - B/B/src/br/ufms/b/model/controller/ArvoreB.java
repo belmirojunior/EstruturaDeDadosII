@@ -252,11 +252,11 @@ public class ArvoreB {
         this.mm = 2 * m;
     }
 
-    public Item pesquisa(Item reg) {
+    public Item busca(Item reg) {
         return this.pesquisa(reg, this.raiz);
     }
 
-    public void insere(Item reg) {
+    public void inserir(Item reg) {
         Item regRetorno[] = new Item[1];
         boolean cresceu[] = new boolean[1];
         Pagina apRetorno = this.insere(reg, this.raiz, regRetorno, cresceu);
@@ -272,7 +272,7 @@ public class ArvoreB {
         }
     }
 
-    public void retira(Item reg) {
+    public void remover(Item reg) {
         boolean diminuiu[] = new boolean[1];
         this.raiz = this.retira(reg, this.raiz, diminuiu);
         if (diminuiu[0] && (this.raiz.n == 0)) { // @{\it \'Arvore diminui na altura}@
@@ -280,7 +280,7 @@ public class ArvoreB {
         }
     }
 
-    public void imprime() {
+    public void print() {
         System.out.println("ARVORE:");
         this.imprime(this.raiz, 0,exp+"   ");
     }

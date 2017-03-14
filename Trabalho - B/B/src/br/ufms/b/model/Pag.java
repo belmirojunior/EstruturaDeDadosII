@@ -1,19 +1,18 @@
 package br.ufms.b.model;
 
-import br.ufms.b.model.Item;
 import java.io.*;
 
-public class MeuItem implements Item {
+public class Pag implements Item {
 
     private int chave;
 
-    public MeuItem(int chave) {
+    public Pag(int chave) {
         this.chave = chave;
     }
 
     @Override
     public int compara(Item it) {
-        MeuItem item = (MeuItem) it;
+        Pag item = (Pag) it;
         if (this.chave < item.chave) {
             return -1;
         } else if (this.chave > item.chave) {
