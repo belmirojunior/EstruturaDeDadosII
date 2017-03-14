@@ -1,4 +1,4 @@
-package br.ufms.b.model.app;
+package br.ufms.b.app;
 import br.ufms.b.model.controller.ArvoreB;
 import br.ufms.b.model.MeuItem;
 import java.io.*;
@@ -7,8 +7,7 @@ public class CriaArvoreB {
 
     public static void main(String[] args) throws Exception {
         ArvoreB b = new ArvoreB(2);
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(System.in));
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         boolean flagPrincipal = true;
         while (flagPrincipal) {
             System.out.println("-------------Menu De Criação Arvore B---------\n"
