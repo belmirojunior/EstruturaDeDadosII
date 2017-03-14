@@ -1,4 +1,4 @@
-package br.ufms.b.model.app;
+package br.ufms.b.model.controller;
 
 import br.ufms.b.model.Item;
 
@@ -16,7 +16,7 @@ public class ArvoreB {
             this.p = new Pagina[mm + 1];
         }
     }
-    private Pagina raiz;
+    static private Pagina raiz;
     private int m, mm;
     static private String exp = "   ";
 
@@ -43,7 +43,8 @@ public class ArvoreB {
 
     private Item pesquisa(Item reg, Pagina ap) {
         if (ap == null) {
-            return null; // Registro @{\it n\~ao}@ econtrado
+            return null; 
+           
         } else {
             int i = 0;
             while ((i < ap.n - 1) && (reg.compara(ap.r[i]) > 0)) {
@@ -91,11 +92,11 @@ public class ArvoreB {
                 }
                 apRetorno = insere(reg, ap.p[i], regRetorno, cresceu);
                 if (cresceu[0]) {
-                    if (ap.n < this.mm) { // @{\it P\'agina tem espa\c{c}o}@
+                    if (ap.n < this.mm) {
                         this.insereNaPagina(ap, regRetorno[0], apRetorno);
                         cresceu[0] = false;
                         apRetorno = ap;
-                    } else { // Overflow: @{\it P\'agina tem que ser dividida}@
+                    } else { 
                         Pagina apTemp = new Pagina(this.mm);
                         apTemp.p[0] = null;
                         if (i <= this.m) {
