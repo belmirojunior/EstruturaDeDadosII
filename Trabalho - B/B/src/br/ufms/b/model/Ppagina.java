@@ -2,17 +2,17 @@ package br.ufms.b.model;
 
 import java.io.*;
 
-public class Item  {
+public class Ppagina  {
 
     private int chave;
 
-    public Item(int chave) {
+    public Ppagina(int chave) {
         this.chave = chave;
     }
 
     
-    public int equals(Item it) {
-        Item item = it;
+    public int equals(Ppagina it) {
+        Ppagina item = it;
         if (this.chave < item.chave) {
             return -1;
         } else if (this.chave > item.chave) {

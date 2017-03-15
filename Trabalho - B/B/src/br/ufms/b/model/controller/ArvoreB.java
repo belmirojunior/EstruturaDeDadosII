@@ -1,18 +1,18 @@
 package br.ufms.b.model.controller;
 
-import br.ufms.b.model.Item;
+import br.ufms.b.model.Ppagina;
 
 public class ArvoreB {
 
     private static class Pagina {
 
         int n;
-        Item t[];
+        Ppagina t[];
         Pagina p[];
 
         public Pagina(int mm) {
             this.n = 0;
-            this.t = new Item[mm];
+            this.t = new Ppagina[mm];
             this.p = new Pagina[mm + 1];
         }
     }
@@ -40,7 +40,7 @@ public class ArvoreB {
         }
     }
 
-    private Item pesquisa(Item reg, Pagina ap) {
+    private Ppagina pesquisa(Ppagina reg, Pagina ap) {
         if (ap == null) {
             return null; 
            
@@ -59,7 +59,7 @@ public class ArvoreB {
         }
     }
 
-    private void addNaPag(Pagina ap, Item reg, Pagina apDir) {
+    private void addNaPag(Pagina ap, Ppagina reg, Pagina apDir) {
         int k = ap.n - 1;
         while ((k >= 0) && (reg.equals(ap.t[k]) < 0)) {
             ap.t[k + 1] = ap.t[k];
@@ -71,7 +71,7 @@ public class ArvoreB {
         ap.n++;
     }
 
-    private Pagina inserirItem(Item novoR, Pagina ap, Item[] listR,
+    private Pagina inserirItem(Ppagina novoR, Pagina ap, Ppagina[] listR,
             boolean[] cresceu) {
         Pagina r = null;
         if (ap == null) {
@@ -208,7 +208,7 @@ public class ArvoreB {
         return diminuiu;
     }
 
-    private Pagina removeI(Item reg, Pagina ap, boolean[] removido) {
+    private Pagina removeI(Ppagina reg, Pagina ap, boolean[] removido) {
         if (ap == null) {
             System.out.println("Erro: Registro nao encontrado");
             removido[0] = false;
@@ -252,12 +252,12 @@ public class ArvoreB {
         this.mm = 2 * m;
     }
 
-    public Item busca(Item reg) {
+    public Ppagina busca(Ppagina reg) {
         return this.pesquisa(reg, this.itemraiz);
     }
 
-    public void inserir(Item reg) {
-        Item regRetorno[] = new Item[1];
+    public void inserir(Ppagina reg) {
+        Ppagina regRetorno[] = new Ppagina[1];
         boolean cresceu[] = new boolean[1];
         Pagina apRetorno = this.inserirItem(reg, this.itemraiz, regRetorno, cresceu);
         if (cresceu[0]) {
@@ -272,7 +272,7 @@ public class ArvoreB {
         }
     }
 
-    public void remover(Item reg) {
+    public void remover(Ppagina reg) {
         boolean diminuiu[] = new boolean[1];
         this.itemraiz = this.removeI(reg, this.itemraiz, diminuiu);
         if (diminuiu[0] && (this.itemraiz.n == 0)) { // @{\it \'Arvore diminui na altura}@

@@ -1,7 +1,7 @@
 package br.ufms.b.app;
 
 import br.ufms.b.model.controller.ArvoreB;
-import br.ufms.b.model.Item;
+import br.ufms.b.model.Ppagina;
 import java.io.*;
 
 public class App {
@@ -26,7 +26,7 @@ public class App {
                     System.out.println("Informe um elemento || 0 para voltar no Menu !");
                     chave = Integer.parseInt(leia.readLine());
                     while (chave > 0) {
-                        Item item = new Item(chave);
+                        Ppagina item = new Ppagina(chave);
                         b.inserir(item);
                         b.print();
                         chave = Integer.parseInt(leia.readLine());
@@ -37,8 +37,8 @@ public class App {
                     System.out.println("\nPesquisando chaves");
                     chave = Integer.parseInt(leia.readLine());
                     while (chave > 0) {
-                        Item item = new Item(chave);
-                        item = (Item) b.busca(item);
+                        Ppagina item = new Ppagina(chave);
+                        item = (Ppagina) b.busca(item);
                         if (item == null) {
                             System.out.println("Item nao encontrado");
                         } else {
@@ -51,7 +51,7 @@ public class App {
                     System.out.println("\nRemovendo algumas chaves");
                     chave = Integer.parseInt(leia.readLine());
                     while (chave > 0) {
-                        Item item = new Item(chave);
+                        Ppagina item = new Ppagina(chave);
                         b.remover(item);
                         b.print();
                         chave = Integer.parseInt(leia.readLine());
