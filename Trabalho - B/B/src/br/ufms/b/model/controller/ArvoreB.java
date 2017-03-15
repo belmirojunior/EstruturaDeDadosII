@@ -7,36 +7,35 @@ public class ArvoreB {
     private static class Pagina {
 
         int n;
-        Item r[];
+        Item t[];
         Pagina p[];
 
         public Pagina(int mm) {
             this.n = 0;
-            this.r = new Item[mm];
+            this.t = new Item[mm];
             this.p = new Pagina[mm + 1];
         }
     }
-    static private Pagina raiz;
+    static private Pagina itemraiz;
     private int m, mm;
-    static private String exp = "   ";
 
-    private void imprime(Pagina p, int nivel, String ep) {
+    private void imprime(Pagina p, int nivel) {
         if (p != null) {
-            System.out.print("   " + exp + "Nivel" + nivel + ":");
+            System.out.print( "Nivel" + nivel + ":");
             for (int i = 0; i < p.n; i++) {
-                System.out.print(" " + p.r[i].toString());
+                System.out.print(" " + p.t[i].toString());
             }
             System.out.println();
             for (int i = 0; i <= p.n; i++) {
                 if (p.p[i] != null) {
                     if (i < p.n) {
-                        System.out.println("  Esq: " + p.r[i].toString());
+                        System.out.println("  Esq: " + p.t[i].toString());
                     } else {
-                        System.out.println("  Dir: " + p.r[i - 1].toString());
+                        System.out.println("  Dir: " + p.t[i - 1].toString());
                     }
                 }
 
-                imprime(p.p[i], nivel + 1, exp = exp + "");
+                imprime(p.p[i], nivel + 1);
             }
         }
     }
@@ -47,12 +46,12 @@ public class ArvoreB {
            
         } else {
             int i = 0;
-            while ((i < ap.n - 1) && (reg.compara(ap.r[i]) > 0)) {
+            while ((i < ap.n - 1) && (reg.equals(ap.t[i]) > 0)) {
                 i++;
             }
-            if (reg.compara(ap.r[i]) == 0) {
-                return ap.r[i];
-            } else if (reg.compara(ap.r[i]) < 0) {
+            if (reg.equals(ap.t[i]) == 0) {
+                return ap.t[i];
+            } else if (reg.equals(ap.t[i]) < 0) {
                 return pesquisa(reg, ap.p[i]);
             } else {
                 return pesquisa(reg, ap.p[i + 1]);
@@ -60,135 +59,136 @@ public class ArvoreB {
         }
     }
 
-    private void insereNaPagina(Pagina ap, Item reg, Pagina apDir) {
+    private void addNaPag(Pagina ap, Item reg, Pagina apDir) {
         int k = ap.n - 1;
-        while ((k >= 0) && (reg.compara(ap.r[k]) < 0)) {
-            ap.r[k + 1] = ap.r[k];
+        while ((k >= 0) && (reg.equals(ap.t[k]) < 0)) {
+            ap.t[k + 1] = ap.t[k];
             ap.p[k + 2] = ap.p[k + 1];
             k--;
         }
-        ap.r[k + 1] = reg;
+        ap.t[k + 1] = reg;
         ap.p[k + 2] = apDir;
         ap.n++;
     }
 
-    private Pagina insere(Item reg, Pagina ap, Item[] regRetorno,
+    private Pagina inserirItem(Item novoR, Pagina ap, Item[] listR,
             boolean[] cresceu) {
-        Pagina apRetorno = null;
+        Pagina r = null;
         if (ap == null) {
             cresceu[0] = true;
-            regRetorno[0] = reg;
+            listR[0] = novoR;
         } else {
             int i = 0;
-            while ((i < ap.n - 1) && (reg.compara(ap.r[i]) > 0)) {
+            while ((i < ap.n - 1) && (novoR.equals(ap.t[i]) > 0)) {
                 i++;
             }
-            if (reg.compara(ap.r[i]) == 0) {
-                System.out.println("Erro: Registro ja existente");
+            if (novoR.equals(ap.t[i]) == 0) {
+                System.out.println("Numero não encontrado");
                 cresceu[0] = false;
             } else {
-                if (reg.compara(ap.r[i]) > 0) {
+                if (novoR.equals(ap.t[i]) > 0) {
                     i++;
                 }
-                apRetorno = insere(reg, ap.p[i], regRetorno, cresceu);
+                r = inserirItem(novoR, ap.p[i], listR, cresceu);
                 if (cresceu[0]) {
                     if (ap.n < this.mm) {
-                        this.insereNaPagina(ap, regRetorno[0], apRetorno);
+                        this.addNaPag(ap, listR[0], r);
                         cresceu[0] = false;
-                        apRetorno = ap;
+                        r = ap;
                     } else { 
                         Pagina apTemp = new Pagina(this.mm);
                         apTemp.p[0] = null;
                         if (i <= this.m) {
-                            this.insereNaPagina(apTemp, ap.r[this.mm - 1], ap.p[this.mm]);
+                            this.addNaPag(apTemp, ap.t[this.mm - 1], ap.p[this.mm]);
                             ap.n--;
-                            this.insereNaPagina(ap, regRetorno[0], apRetorno);
+                            this.addNaPag(ap, listR[0], r);
                         } else {
-                            this.insereNaPagina(apTemp, regRetorno[0], apRetorno);
+                            this.addNaPag(apTemp, listR[0], r);
                         }
                         for (int j = this.m + 1; j < this.mm; j++) {
-                            this.insereNaPagina(apTemp, ap.r[j], ap.p[j + 1]);
-                            ap.p[j + 1] = null; // @{\it transfere a posse da mem\'oria}@
+                            this.addNaPag(apTemp, ap.t[j], ap.p[j + 1]);
+                            ap.p[j + 1] = null;
                         }
                         ap.n = this.m;
                         apTemp.p[0] = ap.p[this.m + 1];
-                        regRetorno[0] = ap.r[this.m];
-                        apRetorno = apTemp;
+                        listR[0] = ap.t[this.m];
+                        r = apTemp;
                     }
                 }
             }
         }
-        return (cresceu[0] ? apRetorno : ap);
+        return (cresceu[0] ? r : ap);
     }
 
-    private boolean reconstitui(Pagina apPag, Pagina apPai, int posPai) {
+    private boolean merge(Pagina pagAnterior, Pagina pagNovo, int pagPosPai) {
         boolean diminuiu = true;
-        if (posPai < apPai.n) { // @{\it aux = P\'agina a direita de apPag}@
-            Pagina aux = apPai.p[posPai + 1];
+        if (pagPosPai < pagNovo.n) {
+            Pagina aux = pagNovo.p[pagPosPai + 1];
             int dispAux = (aux.n - this.m + 1) / 2;
-            apPag.r[apPag.n++] = apPai.r[posPai];
-            apPag.p[apPag.n] = aux.p[0];
-            aux.p[0] = null; // @{\it transfere a posse da mem\'oria}@
-            if (dispAux > 0) { // @{\it Existe folga: transfere de aux para apPag}@
+            pagAnterior.t[pagAnterior.n++] = pagNovo.t[pagPosPai];
+            pagAnterior.p[pagAnterior.n] = aux.p[0];
+            aux.p[0] = null; 
+            if (dispAux > 0) {
                 for (int j = 0; j < dispAux - 1; j++) {
-                    this.insereNaPagina(apPag, aux.r[j], aux.p[j + 1]);
-                    aux.p[j + 1] = null; // @{\it transfere a posse da mem\'oria}@
+                    this.addNaPag(pagAnterior, aux.t[j], aux.p[j + 1]);
+                    aux.p[j + 1] = null; 
                 }
-                apPai.r[posPai] = aux.r[dispAux - 1];
+                pagNovo.t[pagPosPai] = aux.t[dispAux - 1];
                 aux.n = aux.n - dispAux;
                 for (int j = 0; j < aux.n; j++) {
-                    aux.r[j] = aux.r[j + dispAux];
+                    aux.t[j] = aux.t[j + dispAux];
                 }
                 for (int j = 0; j <= aux.n; j++) {
                     aux.p[j] = aux.p[j + dispAux];
                 }
-                aux.p[aux.n + dispAux] = null; // @{\it transfere a posse da mem\'oria}@
+                aux.p[aux.n + dispAux] = null;
                 diminuiu = false;
-            } else { // @{\it Fus\~ao: intercala aux em apPag e libera aux}@
+            } else { 
                 for (int j = 0; j < this.m; j++) {
-                    this.insereNaPagina(apPag, aux.r[j], aux.p[j + 1]);
-                    aux.p[j + 1] = null; // @{\it transfere a posse da mem\'oria}@
+                    this.addNaPag(pagAnterior, aux.t[j], aux.p[j + 1]);
+                    aux.p[j + 1] = null; 
                 }
-                aux = apPai.p[posPai + 1] = null;
-                /* libera aux */
-                for (int j = posPai; j < apPai.n - 1; j++) {
-                    apPai.r[j] = apPai.r[j + 1];
-                    apPai.p[j + 1] = apPai.p[j + 2];
+                aux = pagNovo.p[pagPosPai + 1] = null;
+                
+                for (int j = pagPosPai; j < pagNovo.n - 1; j++) {
+                    pagNovo.t[j] = pagNovo.t[j + 1];
+                    pagNovo.p[j + 1] = pagNovo.p[j + 2];
                 }
-                apPai.p[apPai.n--] = null; // @{\it transfere a posse da mem\'oria}@
-                diminuiu = apPai.n < this.m;
+                pagNovo.p[pagNovo.n--] = null; 
+                diminuiu = pagNovo.n < this.m;
             }
-        } else { // @{\it aux = P\'agina a esquerda de apPag}@
-            Pagina aux = apPai.p[posPai - 1];
+        } else { 
+            Pagina aux = pagNovo.p[pagPosPai - 1];
             int dispAux = (aux.n - this.m + 1) / 2;
-            for (int j = apPag.n - 1; j >= 0; j--) {
-                apPag.r[j + 1] = apPag.r[j];
+            for (int j = pagAnterior.n - 1; j >= 0; j--) {
+                pagAnterior.t[j + 1] = pagAnterior.t[j];
             }
-            apPag.r[0] = apPai.r[posPai - 1];
-            for (int j = apPag.n; j >= 0; j--) {
-                apPag.p[j + 1] = apPag.p[j];
+            pagAnterior.t[0] = pagNovo.t[pagPosPai - 1];
+            for (int j = pagAnterior.n; j >= 0; j--) {
+                pagAnterior.p[j + 1] = pagAnterior.p[j];
             }
-            apPag.n++;
-            if (dispAux > 0) { // @{\it Existe folga: transfere de aux para apPag}@
+            pagAnterior.n++;
+            if (dispAux > 0) {
                 for (int j = 0; j < dispAux - 1; j++) {
-                    this.insereNaPagina(apPag, aux.r[aux.n - j - 1], aux.p[aux.n - j]);
-                    aux.p[aux.n - j] = null; // @{\it transfere a posse da mem\'oria}@
+                    this.addNaPag(pagAnterior, aux.t[aux.n - j - 1], aux.p[aux.n - j]);
+                    aux.p[aux.n - j] = null; 
                 }
-                apPag.p[0] = aux.p[aux.n - dispAux + 1];
-                aux.p[aux.n - dispAux + 1] = null; // @{\it transfere a posse da mem\'oria}@
-                apPai.r[posPai - 1] = aux.r[aux.n - dispAux];
+                pagAnterior.p[0] = aux.p[aux.n - dispAux + 1];
+                aux.p[aux.n - dispAux + 1] = null; 
+                pagNovo.t[pagPosPai - 1] = aux.t[aux.n - dispAux];
+                
                 aux.n = aux.n - dispAux;
                 diminuiu = false;
-            } //@\lstcontinue@
-            else { // @{\it Fus\~ao: intercala apPag em aux e libera apPag}@
+            } 
+            else {
                 for (int j = 0; j < this.m; j++) {
-                    this.insereNaPagina(aux, apPag.r[j], apPag.p[j + 1]);
-                    apPag.p[j + 1] = null; // @{\it transfere a posse da mem\'oria}@
+                    this.addNaPag(aux, pagAnterior.t[j], pagAnterior.p[j + 1]);
+                    pagAnterior.p[j + 1] = null; 
                 }
-                apPag = null;
-                /* libera apPag */
-                apPai.p[apPai.n--] = null; // @{\it transfere a posse da mem\'oria}@
-                diminuiu = apPai.n < this.m;
+                pagAnterior = null;
+                
+                pagNovo.p[pagNovo.n--] = null; 
+                diminuiu = pagNovo.n < this.m;
             }
         }
         return diminuiu;
@@ -199,47 +199,47 @@ public class ArvoreB {
         if (apPai.p[apPai.n] != null) {
             diminuiu = antecessor(ap, ind, apPai.p[apPai.n]);
             if (diminuiu) {
-                diminuiu = reconstitui(apPai.p[apPai.n], apPai, apPai.n);
+                diminuiu = merge(apPai.p[apPai.n], apPai, apPai.n);
             }
         } else {
-            ap.r[ind] = apPai.r[--apPai.n];
+            ap.t[ind] = apPai.t[--apPai.n];
             diminuiu = apPai.n < this.m;
         }
         return diminuiu;
     }
 
-    private Pagina retira(Item reg, Pagina ap, boolean[] diminuiu) {
+    private Pagina removeI(Item reg, Pagina ap, boolean[] removido) {
         if (ap == null) {
             System.out.println("Erro: Registro nao encontrado");
-            diminuiu[0] = false;
+            removido[0] = false;
         } else {
             int ind = 0;
-            while ((ind < ap.n - 1) && (reg.compara(ap.r[ind]) > 0)) {
+            while ((ind < ap.n - 1) && (reg.equals(ap.t[ind]) > 0)) {
                 ind++;
             }
-            if (reg.compara(ap.r[ind]) == 0) { // achou
-                if (ap.p[ind] == null) { // @{\it P\'agina folha}@
+            if (reg.equals(ap.t[ind]) == 0) {
+                if (ap.p[ind] == null) { 
                     ap.n--;
-                    diminuiu[0] = ap.n < this.m;
+                    removido[0] = ap.n < this.m;
                     for (int j = ind; j < ap.n; j++) {
-                        ap.r[j] = ap.r[j + 1];
+                        ap.t[j] = ap.t[j + 1];
                         ap.p[j] = ap.p[j + 1];
                     }
                     ap.p[ap.n] = ap.p[ap.n + 1];
-                    ap.p[ap.n + 1] = null; // @{\it transfere a posse da mem\'oria}@
-                } else { // @{\it P\'agina n\~ao \'e folha: trocar com antecessor}@
-                    diminuiu[0] = antecessor(ap, ind, ap.p[ind]);
-                    if (diminuiu[0]) {
-                        diminuiu[0] = reconstitui(ap.p[ind], ap, ind);
+                    ap.p[ap.n + 1] = null; 
+                } else {
+                    removido[0] = antecessor(ap, ind, ap.p[ind]);
+                    if (removido[0]) {
+                        removido[0] = merge(ap.p[ind], ap, ind);
                     }
                 }
-            } else { // @{\it n\~ao achou}@
-                if (reg.compara(ap.r[ind]) > 0) {
+            } else {
+                if (reg.equals(ap.t[ind]) > 0) {
                     ind++;
                 }
-                ap.p[ind] = retira(reg, ap.p[ind], diminuiu);
-                if (diminuiu[0]) {
-                    diminuiu[0] = reconstitui(ap.p[ind], ap, ind);
+                ap.p[ind] = removeI(reg, ap.p[ind], removido);
+                if (removido[0]) {
+                    removido[0] = merge(ap.p[ind], ap, ind);
                 }
             }
         }
@@ -247,41 +247,41 @@ public class ArvoreB {
     }
 
     public ArvoreB(int m) {
-        this.raiz = null;
+        this.itemraiz = null;
         this.m = m;
         this.mm = 2 * m;
     }
 
     public Item busca(Item reg) {
-        return this.pesquisa(reg, this.raiz);
+        return this.pesquisa(reg, this.itemraiz);
     }
 
     public void inserir(Item reg) {
         Item regRetorno[] = new Item[1];
         boolean cresceu[] = new boolean[1];
-        Pagina apRetorno = this.insere(reg, this.raiz, regRetorno, cresceu);
+        Pagina apRetorno = this.inserirItem(reg, this.itemraiz, regRetorno, cresceu);
         if (cresceu[0]) {
-            Pagina apTemp = new Pagina(this.mm);
-            apTemp.r[0] = regRetorno[0];
-            apTemp.p[0] = this.raiz;
-            apTemp.p[1] = apRetorno;
-            this.raiz = apTemp;
-            this.raiz.n++;
+            Pagina aux = new Pagina(this.mm);
+            aux.t[0] = regRetorno[0];
+            aux.p[0] = this.itemraiz;
+            aux.p[1] = apRetorno;
+            this.itemraiz = aux;
+            this.itemraiz.n++;
         } else {
-            this.raiz = apRetorno;
+            this.itemraiz = apRetorno;
         }
     }
 
     public void remover(Item reg) {
         boolean diminuiu[] = new boolean[1];
-        this.raiz = this.retira(reg, this.raiz, diminuiu);
-        if (diminuiu[0] && (this.raiz.n == 0)) { // @{\it \'Arvore diminui na altura}@
-            this.raiz = this.raiz.p[0];
+        this.itemraiz = this.removeI(reg, this.itemraiz, diminuiu);
+        if (diminuiu[0] && (this.itemraiz.n == 0)) { // @{\it \'Arvore diminui na altura}@
+            this.itemraiz = this.itemraiz.p[0];
         }
     }
 
     public void print() {
         System.out.println("ARVORE:");
-        this.imprime(this.raiz, 0,exp+"   ");
+        this.imprime(this.itemraiz, 0);
     }
 }
