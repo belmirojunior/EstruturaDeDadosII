@@ -46,7 +46,7 @@ public class Controller {
                             rootTree.imprimirTreePreOrdem(rootTree.root," ");
                             break;
                         case "2":
-//                            rootTree.imprimirTreeOrdemSimetrica(rootTree.);
+                            rootTree.imprimirTreeOrdemSimetrica(rootTree.root," ");
                             break;
                         case "3":
                              rootTree.imprimirTreePosOrdem(rootTree.root," ");

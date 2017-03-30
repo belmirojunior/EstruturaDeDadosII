@@ -1,16 +1,17 @@
 package br.ufms.b.app;
 
-import br.ufms.b.model.controller.ArvoreB;
-import br.ufms.b.model.Ppagina;
-import java.io.*;
+import br.ufms.b.controller.ArvoreB;
+import br.ufms.b.modell.No;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class App {
-
+    // view do progama aqui vao ser chamados todos metodos do motor da Arvore B
     public static void main(String[] args) throws Exception {
-        ArvoreB b = new ArvoreB(2);
-        BufferedReader leia = new BufferedReader(new InputStreamReader(System.in));
-        boolean flagPrincipal = true;
-        while (flagPrincipal) {
+        ArvoreB arvore = new ArvoreB(2);
+        BufferedReader ler = new BufferedReader(new InputStreamReader(System.in));
+        boolean flag = true;
+        while (flag) {
             System.out.print("-------------Menu De Criação Arvore B---------\n"
                     + "--------------    1 - Criar B      -----------\n"
                     + "--------------    2 - Busca B     ------------\n"
@@ -18,49 +19,94 @@ public class App {
                     + "--------------    0 - Sair        ------------\n"
                     + "Escolha uma das opcoes acima: ");
 
-            String opcao = leia.readLine();
-
-            int chave;
+            String opcao = ler.readLine();
+            int num;
+            No item;
             switch (opcao) {
                 case "1":
                     System.out.println("Informe um elemento || 0 para voltar no Menu !");
-                    chave = Integer.parseInt(leia.readLine());
-                    while (chave > 0) {
-                        Ppagina item = new Ppagina(chave);
-                        b.inserir(item);
-                        b.print();
-                        chave = Integer.parseInt(leia.readLine());
-                        System.out.println("Informe um elemento || 0 para sair !");
+                    num = Integer.parseInt(ler.readLine());
+                    while (num > 0) {
+                        item = new No(num);
+                        arvore.insere(item);
+                        arvore.imprime();
+                        System.out.println("Informe um elemento || 0 para voltar no Menu !");
+                        num = Integer.parseInt(ler.readLine());
                     }
                     break;
                 case "2":
-                    System.out.println("\nPesquisando chaves");
-                    chave = Integer.parseInt(leia.readLine());
-                    while (chave > 0) {
-                        Ppagina item = new Ppagina(chave);
-                        item = (Ppagina) b.busca(item);
+
+                    System.out.println("Informe um elemento Pesquisar|| 0 para voltar no Menu !");
+                    num = Integer.parseInt(ler.readLine());
+                    while (num > 0) {
+                        item = new No(num);
+                        item = arvore.buscar(item);
                         if (item == null) {
                             System.out.println("Item nao encontrado");
                         } else {
-                            System.out.println("Item encontrado");
+                            System.out.println("Elemento encontrado");
                         }
-                        chave = Integer.parseInt(leia.readLine());
+                        System.out.println("Informe um elemento Pesquisar|| 0 para voltar no Menu !");
+                        num = Integer.parseInt(ler.readLine());
+
                     }
                     break;
                 case "3":
-                    System.out.println("\nRemovendo algumas chaves");
-                    chave = Integer.parseInt(leia.readLine());
-                    while (chave > 0) {
-                        Ppagina item = new Ppagina(chave);
-                        b.remover(item);
-                        b.print();
-                        chave = Integer.parseInt(leia.readLine());
+                    System.out.println("Informe um elemento para Remover|| 0 para voltar no Menu !");
+                    num = Integer.parseInt(ler.readLine());
+                    while (num > 0) {
+
+                        item = new No(num);
+                        item = arvore.buscar(item);
+                        if (item == null) {
+                            System.out.println("Elemento nao encontrado");
+                        } else {
+                            item = new No(num);
+                            arvore.remover(item);
+                            arvore.imprime();
+                            System.out.println("Elemento Removido");
+                        }
+                        System.out.println("Informe um elemento para Remover|| 0 para voltar no Menu !");
+                        num = Integer.parseInt(ler.readLine());
                     }
+                    break;
+                case "0":
+                    System.out.println("############# FIM ############ ");
+                    flag = false;
                     break;
                 default:
                     System.out.println("Opção Invalida!!!");
 
             }
+//        switch (opcao) {
+//                case 1:
+//                    System.out.println("Digite um número");
+//                    int num = Integer.parseInt(ler.readLine());
+//                    No item = new No(num);
+//                    arvore.insere(item);
+//                    arvore.imprime();
+//                    break;
+//                case 2:
+//                    System.out.println("Digite um número:");
+//                    num = Integer.parseInt(ler.readLine());
+//                    item = new No(num);
+//                    arvore.remover(item);
+//                    arvore.imprime();
+//                    break;
+//                case 3:
+//                    System.out.println("Digite um número");
+//                    num = Integer.parseInt(ler.readLine());
+//                    item = new No(num);
+//                    item = arvore.buscar(item);
+//                    if (item == null) {
+//                        System.out.println("Item nao encontrado");
+//                    } else {
+//                        System.out.println("Item encontrado");
+//                    }
+//                    break;
+//                case 0:
+//                    System.exit(0);
+//            }
         }
     }
 }

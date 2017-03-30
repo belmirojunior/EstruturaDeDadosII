@@ -34,13 +34,13 @@ public final class TreeController {
 
     public static long getDirectorySize(File directory) {
         long length = 0;
-        for (File file : directory.listFiles()) {
-            if (file.isFile()) {
-                length += file.length();
-            } else {
-                length += getDirectorySize(file);
-            }
-        }
+//        for (File file : directory.listFiles()) {
+//            if (file.isFile()) {
+//                length += file.length();
+//            } else {
+//                length += getDirectorySize(file);
+//            }
+//        }
         return length;
     }
 
